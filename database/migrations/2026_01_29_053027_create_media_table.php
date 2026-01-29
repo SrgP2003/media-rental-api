@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('type');
             $table->string('location');
             $table->string('dimensions');
-            $table->string('price_per_day, 10, 2');
-            $table->boolean('status')->default(true); //activo o inactivo
+            $table->decimal('price_per_day', 10, 2);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
-
     }
 
     /**

@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        $this->call([
+            MediaSeeder::class, // Llama al seeder de Media
+            CustomerSeeder::class, // Llama al seeder de Customer
+        ]); 
 
         User::factory()->create([
             'name' => 'Test User',
