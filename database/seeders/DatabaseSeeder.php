@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MediaSeeder::class, // Llama al seeder de Media
             CustomerSeeder::class, // Llama al seeder de Customer
-        ]); 
+            BookingSeeder::class, // Llama al seeder de Booking
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',
