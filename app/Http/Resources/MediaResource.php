@@ -27,7 +27,7 @@ class MediaResource extends JsonResource
             'updated_at' => $this->updated_at?->toDateTimeString(),
 
             //Solo en caso de cargar relaciones
-            'bookings' => BookingResource::collection($this->whenLoaded('bookings')),
+            //'bookings' => BookingResource::collection($this->whenLoaded('bookings')),
         ];
     }
 }

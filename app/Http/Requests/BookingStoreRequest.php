@@ -34,6 +34,12 @@ class BookingStoreRequest extends FormRequest
             ) {
                 return;
             }
+            if (!$this->isMediaActive()) { //Verifica si el media esta activo
+                $validator->errors()->add(
+                    'media_id',
+                    'El medio seleccionado no está activo.'
+                );
+            }
 
             if ($this->hasOverlap()) {
                 $validator->errors()->add(
@@ -53,5 +59,11 @@ class BookingStoreRequest extends FormRequest
                     ->where('ends_at', '>=', $this->starts_at);
             })
             ->exists();
+    }
+
+    private function isMediaActive(): bool
+    {
+        $media = \App\Models\Media::find($this->media_id);
+        return $media && $media->status === 'active';
     }
 }
