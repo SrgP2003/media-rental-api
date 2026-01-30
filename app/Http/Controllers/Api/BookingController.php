@@ -9,14 +9,15 @@ use App\Models\Media;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookingStatusUpdateRequest;
-use Nette\Utils\Json;
+use App\Http\Resources\BookingResource;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $query = Booking::with(['media', 'customer'])
             ->orderBy('starts_at');
@@ -28,8 +29,8 @@ class BookingController extends Controller
         if ($request->media_id) {
             $query->where('media_id', $request->media_id);
         }
-
-        return response()->json($query->paginate(10));
+        $bookings = $query->paginate(10); //Paginacion de 10 por página
+        return BookingResource::collection($bookings);
     }
 
     /**
@@ -41,7 +42,9 @@ class BookingController extends Controller
         $media = Media::findOrFail($request->media_id);
 
         //Calculo de la duracion en días
-        $days = $request->starts_at->diffInDays($request->ends_at) + 1;
+        $start = Carbon::parse($request->starts_at);
+        $end = Carbon::parse($request->ends_at);
+        $days = $start->diffInDays($end) + 1;
 
         //Calculo del precio total
         $totalPrice = $days * $media->price_per_day;
@@ -50,22 +53,23 @@ class BookingController extends Controller
         $booking = Booking::create([
             'media_id' => $request->media_id,
             'customer_id' => $request->customer_id,
-            'starts_at' => $request->starts_at,
-            'ends_at' => $request->ends_at,
+            'starts_at' => $start,
+            'ends_at' => $end,
             'total_price' => $totalPrice,
             'status' => $request->status ?? 'pending',
         ]);
 
-        //Respuesta JSON con la reserva creada
-        return response()->json($booking->load(['media', 'customer']), 201);
+        return (new BookingResource(
+            $booking->load(['media', 'customer'])
+        ))->response()->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking): JsonResponse
+    public function show(Booking $booking): BookingResource
     {
-        return response()->json($booking->load(['media', 'customer']));
+        return new BookingResource($booking->load(['media', 'customer']));
     }
 
 
@@ -80,13 +84,7 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Booking $booking): JsonResponse
-    {
-        $booking->update([
-            'status' => 'cancelled',
-        ]);
-        return response()->json(['message' => 'Reserva cancelada exitosamente.']);
-    }
+
 
     public function updateStatus(
         BookingStatusUpdateRequest $request,
@@ -98,7 +96,7 @@ class BookingController extends Controller
 
         return response()->json([
             'message' => 'Estado actualizado correctamente',
-            'booking' => $booking,
+            'booking' => new BookingResource($booking->load(['media', 'customer'])),
         ]);
     }
 }
