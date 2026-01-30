@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\MediaController;
+use App\Http\Controllers\Api\CustomerController;
 
 /* Route::get('/ping', function () {
     return response()->json(['pong' => true]);
@@ -24,3 +25,8 @@ Route::post('/media', [MediaController::class, 'store']);
 Route::get('/media/{media}', [MediaController::class, 'show']);
 Route::put('/media/{media}', [MediaController::class, 'update']);
 Route::delete('/media/{media}', [MediaController::class, 'destroy']);
+
+//Rutas para la gestion de clientes
+Route::get('/customers', [CustomerController::class, 'index']);
+Route::post('/customers', [CustomerController::class, 'store']);
+Route::get('/customers/{customer}', [CustomerController::class, 'show']);
