@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookingController;
+use App\Http\Controllers\Api\MediaController;
 
 /* Route::get('/ping', function () {
     return response()->json(['pong' => true]);
 }); */
 
+// Rutas para la gestion de reservas
 Route::get('/bookings', [BookingController::class, 'index']);
 Route::post('/bookings', [BookingController::class, 'store']);
 Route::get('/bookings/{booking}', [BookingController::class, 'show']);
@@ -15,3 +17,10 @@ Route::patch(
     '/bookings/{booking}/status',
     [BookingController::class, 'updateStatus']
 );
+
+//Rutas para la gestion de medios
+Route::get('/media', [MediaController::class, 'index']);
+Route::post('/media', [MediaController::class, 'store']);
+Route::get('/media/{media}', [MediaController::class, 'show']);
+Route::put('/media/{media}', [MediaController::class, 'update']);
+Route::delete('/media/{media}', [MediaController::class, 'destroy']);
