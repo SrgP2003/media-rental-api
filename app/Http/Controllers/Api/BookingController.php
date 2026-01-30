@@ -22,11 +22,11 @@ class BookingController extends Controller
         $query = Booking::with(['media', 'customer'])
             ->orderBy('starts_at');
 
-        if ($request->status) {
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        if ($request->media_id) {
+        if ($request->filled('media_id')) {
             $query->where('media_id', $request->media_id);
         }
         $bookings = $query->paginate(10); //Paginacion de 10 por página
@@ -44,10 +44,13 @@ class BookingController extends Controller
         //Calculo de la duracion en días
         $start = Carbon::parse($request->starts_at);
         $end = Carbon::parse($request->ends_at);
-        $days = $start->diffInDays($end) + 1;
 
-        //Calculo del precio total
-        $totalPrice = $days * $media->price_per_day;
+        //Calculo del precio total utilizando el precio por día del medio
+        $totalPrice = Booking::calculatePriceFromDates(
+            $start,
+            $end,
+            $media->price_per_day
+        );
 
         //Creacion de la reserva
         $booking = Booking::create([
@@ -72,31 +75,11 @@ class BookingController extends Controller
         return new BookingResource($booking->load(['media', 'customer']));
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    /* public function update(Request $request, string $id)
-    {
-        //
-    } */
-
-    /**
-     * Remove the specified resource from storage.
-     */
-
-
     public function updateStatus(
         BookingStatusUpdateRequest $request,
         Booking $booking
-    ): JsonResponse {
-        $booking->update([
-            'status' => $request->status,
-        ]);
-
-        return response()->json([
-            'message' => 'Estado actualizado correctamente',
-            'booking' => new BookingResource($booking->load(['media', 'customer'])),
-        ]);
+    ): BookingResource {
+        $booking->update(['status' => $request->status]);
+        return new BookingResource($booking->load(['media', 'customer']));
     }
 }

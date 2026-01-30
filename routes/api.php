@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\MediaAvailabilityController;
 
 /* Route::get('/ping', function () {
     return response()->json(['pong' => true]);
@@ -30,3 +31,6 @@ Route::delete('/media/{media}', [MediaController::class, 'destroy']);
 Route::get('/customers', [CustomerController::class, 'index']);
 Route::post('/customers', [CustomerController::class, 'store']);
 Route::get('/customers/{customer}', [CustomerController::class, 'show']);
+
+//Ruta para verificar la disponibilidad de un medio
+Route::get('/media/{media}/availability', [MediaAvailabilityController::class, 'check']);
