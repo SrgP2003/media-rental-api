@@ -117,7 +117,7 @@ http://localhost:8000
 
 ---
 
-## 🧠 Decisiones técnicas
+## Decisiones técnicas
 
 * **Laravel 12**: Se utilizó la versión más reciente para aprovechar mejoras en routing, Form Requests y Resources.
 * **API Resources**: Para estandarizar las respuestas JSON y facilitar el consumo desde frontend (Nuxt.js).
@@ -129,7 +129,7 @@ http://localhost:8000
 
 ---
 
-## ✅ Estado del proyecto
+## Estado del proyecto
 
 ✔ Migraciones
 ✔ Seeders
