@@ -13,6 +13,7 @@ class MediaSeeder extends Seeder
     public function run(): void
     {
         Media::create([
+            'id' => 1,
             'name' => 'Valla Centro Histórico',
             'type' => 'billboard',
             'location' => 'San Salvador',
@@ -22,6 +23,7 @@ class MediaSeeder extends Seeder
         ]);
 
         Media::create([
+            'id' => 2,
             'name' => 'Pantalla LED Escalón',
             'type' => 'screen',
             'location' => 'Colonia Escalón',
@@ -31,6 +33,7 @@ class MediaSeeder extends Seeder
         ]);
 
         Media::create([
+            'id' => 3,
             'name' => 'Mupi Zona Rosa',
             'type' => 'mupi',
             'location' => 'Zona Rosa',

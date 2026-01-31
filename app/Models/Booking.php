@@ -40,7 +40,6 @@ class Booking extends Model
     // Método para calcular la duración de la reserva en días
 
     /**
-     *
      * @return int //Para el numero de dias de la reserva
      */
     public function getDurationInDays(): int

@@ -7,7 +7,6 @@ use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {

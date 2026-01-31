@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class BookingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de reservas.
      */
     public function index(Request $request)
     {
@@ -34,7 +34,7 @@ class BookingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena una nueva reserva en la base de datos.
      */
     public function store(BookingStoreRequest $request): JsonResponse
     {
@@ -68,7 +68,7 @@ class BookingController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de una reserva en particular.
      */
     public function show(Booking $booking): BookingResource
     {

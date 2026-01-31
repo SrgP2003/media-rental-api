@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-//use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Booking;
 use App\Models\Media;
@@ -28,7 +27,11 @@ class BookingSeeder extends Seeder
             'customer_id' => $customer->id,
             'starts_at' => Carbon::now()->addDays(1),
             'ends_at' => Carbon::now()->addDays(5),
-            'total_price' => 5 * $media->price_per_day, // 5 días de reserva
+            'total_price' => Booking::calculatePriceFromDates( //Para 5 dias de reserva
+                Carbon::now()->addDays(1),
+                Carbon::now()->addDays(5),
+                $media->price_per_day
+            ),
             'status' => 'confirmed',
         ]);
     }
