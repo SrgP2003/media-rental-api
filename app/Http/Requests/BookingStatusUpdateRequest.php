@@ -25,4 +25,11 @@ class BookingStatusUpdateRequest extends FormRequest
             'status' => ['required', 'in:pending,confirmed,cancelled'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'status.required' => 'El estado es obligatorio.',
+            'status.in' => 'El estado debe ser "pending", "confirmed" o "cancelled".',
+        ];
+    }
 }

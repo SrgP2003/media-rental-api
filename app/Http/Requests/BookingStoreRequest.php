@@ -22,6 +22,22 @@ class BookingStoreRequest extends FormRequest
             'status' => ['nullable', 'in:pending,confirmed,cancelled'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'media_id.required' => 'El ID del medio es obligatorio.',
+            'media_id.exists' => 'El medio seleccionado no existe.',
+            'customer_id.required' => 'El ID del cliente es obligatorio.',
+            'customer_id.exists' => 'El cliente seleccionado no existe.',
+            'starts_at.required' => 'La fecha de inicio es obligatoria.',
+            'starts_at.date' => 'La fecha de inicio debe ser una fecha válida.',
+            'starts_at.after_or_equal' => 'La fecha de inicio no puede ser anterior a hoy.',
+            'ends_at.required' => 'La fecha de fin es obligatoria.',
+            'ends_at.date' => 'La fecha de fin debe ser una fecha válida.',
+            'ends_at.after_or_equal' => 'La fecha de fin no puede ser anterior a la fecha de inicio.',
+            'status.in' => 'El estado debe ser "pending", "confirmed" o "cancelled".',
+        ];
+    }
 
     public function withValidator($validator): void
     {

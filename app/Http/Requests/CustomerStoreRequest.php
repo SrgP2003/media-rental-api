@@ -27,4 +27,16 @@ class CustomerStoreRequest extends FormRequest
             'phone' => 'nullable|string|max:20',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre debe ser una cadena de texto.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'El correo electrónico debe ser una dirección válida.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'phone.string' => 'El teléfono debe ser una cadena de texto.',
+            'phone.max' => 'El teléfono no puede tener más de 9 caracteres.',
+        ];
+    }
 }

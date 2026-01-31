@@ -30,4 +30,16 @@ class MediaUpdateRequest extends FormRequest
             'status' => 'sometimes|in:active,inactive',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.string' => 'El nombre debe ser una cadena de texto.',
+            'type.string' => 'El tipo debe ser una cadena de texto.',
+            'location.string' => 'La ubicación debe ser una cadena de texto.',
+            'dimensions.string' => 'Las dimensiones deben ser una cadena de texto.',
+            'price_per_day.numeric' => 'El precio por día debe ser un número.',
+            'price_per_day.min' => 'El precio por día no puede ser negativo.',
+            'status.in' => 'El estado debe ser "active" o "inactive".',
+        ];
+    }
 }

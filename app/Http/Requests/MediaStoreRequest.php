@@ -30,4 +30,17 @@ class MediaStoreRequest extends FormRequest
             'status' => 'nullable|in:active,inactive',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'El nombre es obligatorio.',
+            'type.required' => 'El tipo es obligatorio.',
+            'location.required' => 'La ubicación es obligatoria.',
+            'dimensions.required' => 'Las dimensiones son obligatorias.',
+            'price_per_day.required' => 'El precio por día es obligatorio.',
+            'price_per_day.numeric' => 'El precio por día debe ser un número.',
+            'price_per_day.min' => 'El precio por día no puede ser negativo.',
+            'status.in' => 'El estado debe ser "active" o "inactive".',
+        ];
+    }
 }
