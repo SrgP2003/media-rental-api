@@ -5,10 +5,14 @@ use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\MediaAvailabilityController;
+use App\Http\Controllers\Api\AuthController;
 
-/* Route::get('/ping', function () {
-    return response()->json(['pong' => true]);
-}); */
+//Rutas para la autenticacion
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
 // Rutas para la gestion de reservas
 Route::get('/bookings', [BookingController::class, 'index']);
