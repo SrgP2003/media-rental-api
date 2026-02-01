@@ -43,4 +43,11 @@ class AuthController extends Controller
             'message' => 'Sesión cerrada exitosamente'
         ]);
     }
+    //Funcion para obtener el usuario autenticado
+    public function user(Request $request): JsonResponse
+    {
+        return response()->json([
+            'user' => $request->user(),
+        ]);
+    }
 }
